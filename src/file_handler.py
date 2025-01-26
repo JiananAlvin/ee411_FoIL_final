@@ -1,60 +1,33 @@
 import os
 import numpy as np
-import yaml
-
+from omegaconf import OmegaConf
 from src.utils.constants import Folders
 
 
 class FileHandler:
 
     def __init__(self, config_name: str, read_mode: bool):
-
         self.config_name = config_name
         self.log_folder = os.path.join(Folders.LOGS, config_name)
 
         if not read_mode:
-            # FileHandler used for saving logs
             if not os.path.exists(self.log_folder):
                 os.makedirs(self.log_folder)
-            else:
-                if len(os.listdir(self.log_folder)) == 0:
-                    # no problem when the folder already exists, but does not contain any files
-                    pass
-                else:
-                    exit(f'error: logs for {self.config_name} already exist at {self.log_folder}: delete or move folder and run again')
-
-        else:
-            # FileHandler used for reading logs
-            if not os.path.exists(self.log_folder):
-                exit(f'error: results can not be shown: no logs exist for {self.config_name} at {self.log_folder}')
-            else:
-                # fine
-                pass
+            elif os.listdir(self.log_folder):
+                exit(f"error: logs for {self.config_name} already exist at {self.log_folder}")
 
 
-    """
-    Config File 
-    """
-    def save_config(self, config: dict):
-        file = os.path.join(self.log_folder, self.config_name + '.yaml')
-
-        with open(file, 'w') as f:
-            yaml.dump(config, f, default_flow_style=False)
-
+    ## Config File 
+    def save_config(self, config):
+        file = os.path.join(self.log_folder, f"{self.config_name}.yaml")
+        OmegaConf.save(config, file)
 
     def load_config(self):
-        file = os.path.join(self.log_folder, self.config_name + '.yaml')
-
-        with open(file, 'r') as f:
-            config = yaml.safe_load(f)
-            # no validation required
-
-        return config
+        file = os.path.join(self.log_folder, f"{self.config_name}.yaml")
+        return OmegaConf.load(file)
 
 
-    """
-    Numpy Array
-    """
+    ## Numpy Array
     def save_numpy(self, metric_name: str, arr: np.ndarray):
         file = os.path.join(self.log_folder, metric_name + '.npy')
 
@@ -70,11 +43,10 @@ class FileHandler:
         return arr
 
 
-    """
-    Logs
-    """
+    ## Logs
     def save_logs(self,
                   config: dict,
+                  weight_norm: np.ndarray,
                   zero_one_loss_train: np.ndarray,
                   squared_loss_train: np.ndarray,
                   entropy_loss_train: np.ndarray,
@@ -89,6 +61,7 @@ class FileHandler:
                   f1_test: np.ndarray):
 
         self.save_config(config=config)
+        self.save_numpy('weight_norm', weight_norm)
 
         # train results
         self.save_numpy('zero_one_loss_train', zero_one_loss_train)

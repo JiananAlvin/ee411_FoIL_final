@@ -28,25 +28,25 @@ class WrapperFCNN:
             in_nodes=in_nodes,
             hidden_nodes=hidden_nodes,
             out_nodes=out_nodes,
-            final_activation=self.fcnn_parameters['final_activation'],
-            weight_reuse=self.fcnn_parameters['weight_reuse'],
-            weight_initialization=self.fcnn_parameters['weight_initialization'],
+            final_activation=fcnn_parameters.final_activation,
+            weight_reuse=fcnn_parameters.weight_reuse,
+            weight_initialization=fcnn_parameters.weight_initialization,
             interpolation_threshold=interpolation_threshold,
             smaller_model=smaller_model,
-            dropout=self.fcnn_parameters['dropout']
+            dropout=fcnn_parameters.dropout,
         )
 
     def train(self, X_train: np.ndarray, Y_train: np.ndarray, training_parameters: dict):
 
         # use parameter info
-        n_epochs = training_parameters['n_epochs']
-        batch_size = training_parameters['batch_size']
-        step_size_reduce_epochs = training_parameters['step_size_reduce_epochs']
-        step_size_reduce_percent = training_parameters['step_size_reduce_percent']
-        stop_at_zero_error = training_parameters['stop_at_zero_error']
+        n_epochs = training_parameters.n_epochs
+        batch_size = training_parameters.batch_size
+        step_size_reduce_epochs = training_parameters.step_size_reduce_epochs
+        step_size_reduce_percent = training_parameters.step_size_reduce_percent
+        stop_at_zero_error = training_parameters.stop_at_zero_error
 
         # initialize loss
-        match training_parameters['loss']:
+        match training_parameters.loss:
 
             case 'squared_loss':
                 Loss = nn.MSELoss()
@@ -57,7 +57,7 @@ class WrapperFCNN:
 
 
         # initialize optimizer
-        match training_parameters['optimizer']:
+        match training_parameters.optimizer:
 
             case 'sgd':
                 optimizer = torch.optim.SGD(

@@ -17,3 +17,8 @@ class Metrics:
 
 class Datasets:
     MNIST = 'MNIST'
+
+
+class Models:
+    RFF = 'rff'
+    FCNN = 'fcnn'

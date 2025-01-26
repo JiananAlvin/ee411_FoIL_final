@@ -10,10 +10,10 @@ class DataLoader:
 
     def __init__(self, dataset_parameters: dict):
 
-        self.dataset = dataset_parameters['dataset']
-        self.n_train = dataset_parameters['n_train']
-        self.n_classes = dataset_parameters['n_classes']
-        self.label_noise = dataset_parameters['label_noise']
+        self.dataset = dataset_parameters.dataset
+        self.n_train = dataset_parameters.n_train
+        self.n_classes = dataset_parameters.n_classes
+        self.label_noise = dataset_parameters.label_noise
 
         # determine interpolation threshold
         self.interpolation_threshold = self.n_classes * self.n_train
@@ -25,10 +25,10 @@ class DataLoader:
 
             case Datasets.MNIST:
                 # we do not use the same train test split as given
-                X_train = read_mnist_image_file('train-images.idx3-ubyte')
-                X_test = read_mnist_image_file('t10k-images.idx3-ubyte')
-                Y_train = read_mnist_labels('train-labels.idx1-ubyte')
-                Y_test = read_mnist_labels('t10k-labels.idx1-ubyte')
+                X_train = read_mnist_image_file('train-images-idx3-ubyte')
+                X_test = read_mnist_image_file('t10k-images-idx3-ubyte')
+                Y_train = read_mnist_labels('train-labels-idx1-ubyte')
+                Y_test = read_mnist_labels('t10k-labels-idx1-ubyte')
 
                 # scale the maximum range of each feature to the interval [0, 1]
                 X_train = X_train / 255.

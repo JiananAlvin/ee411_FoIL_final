@@ -1,0 +1,8 @@
+wandb: Currently logged in as: jiananwang990 (jianan-epfl). Use `wandb login --relogin` to force relogin
+wandb: Using wandb-core as the SDK backend.  Please refer to https://wandb.me/wandb-core for more information.
+wandb: Tracking run with wandb version 0.19.4
+wandb: Run data is saved locally in /home/jiaxu/projects/double_descent/wandb/run-20250126_115933-c2wu697y
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run fcnn_mnist_label_noise_0_10_554b
+wandb: ⭐️ View project at https://wandb.ai/jianan-epfl/double_descent
+wandb: 🚀 View run at https://wandb.ai/jianan-epfl/double_descent/runs/c2wu697y
