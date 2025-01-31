@@ -44,7 +44,7 @@ data
 
 2. Configure the model and training parameters:
    
-The configurations for the experiments are stored in YAML files under `config`. The default configuration files are `rff_mnist_label_noise_0_10.yaml` for RFF models and `fcnn_mnist_label_noise_0_10.yaml` for FCNNs. You can create a new configuration file or modify the existing one to customize the experiment parameters.
+The configurations for the experiments are stored in YAML files under `config`. The default configuration files are `rff_mnist.yaml` for RFF models and `fcnn_mnist.yaml` for FCNNs. You can create a new configuration file or modify the existing one to customize the experiment parameters.
 
 3. Run the experiment:
    
@@ -52,7 +52,7 @@ To run the experiment, use the following command:
 ```
 python run.py --model_type <model_type> --config <configuration_file>
 ```
-Replace <model_type> with either `rff` or `fcnn` to select the model you want to use. Replace <configuration_file> with either `rff_mnist_label_noise_0_10` or `fcnn_mnist_label_noise_0_10` accordingly.
+Replace <model_type> with either `rff` or `fcnn` to select the model you want to use. Replace <configuration_file> with either `rff_mnist` or `fcnn_mnist` accordingly.
 
 > [!NOTE]
 > Before running the experiments, make sure the <code>results/</code> folder is empty. This ensures that the new results are saved properly without conflicts from previous runs. If needed, manually delete old experiment results or move them to a backup location.
