@@ -1,0 +1,17 @@
+name: double_descent
+channels:
+  - defaults
+dependencies:
+  - python=3.10
+  - cpuonly
+  - pytorch==2.0.1
+  - torchaudio==2.0.2
+  - torchvision==0.15.2
+  - ipykernel
+  - matplotlib
+  - omegaconf
+  - tqdm
+  - conda-forge::wandb
+  - scikit-learn
+  - numpy
+prefix: /home/jiaxu/miniconda3/envs/double_descent

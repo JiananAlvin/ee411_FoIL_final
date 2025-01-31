@@ -1,6 +1,6 @@
 class Folders:
     CONFIGS = "config/"
-    LOGS = "results/"
+    LOGS = "log/"
     DATA = "data/"
 
 
