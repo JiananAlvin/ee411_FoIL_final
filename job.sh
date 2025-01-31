@@ -22,5 +22,5 @@ eval "$(conda shell.bash hook)"
 conda activate double_descent
 
 # Run the Python script
-python run.py --model_type fcnn --config fcnn_mnist_label_noise_0_10
-# python run.py --model_type rff --config rff_mnist_label_noise_0_10
+# python run.py --model_type fcnn --config fcnn_mnist_label_noise_0_10
+python run.py --model_type rff --config rff_mnist_label_noise_0_10

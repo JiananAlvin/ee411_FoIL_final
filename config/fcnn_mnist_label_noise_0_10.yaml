@@ -12,7 +12,7 @@ fcnn_parameters:
                  40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59,
                  60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120, 125, 130, 135, 140, 145, 150]
   final_activation        : 'none'
-  weight_reuse            : 'none'
+  weight_reuse            : 'under-parametrized'
   weight_initialization   : 'xavier_uniform'
   dropout                 : 0.0
 
@@ -24,5 +24,5 @@ training_parameters:
   learning_rate           : 0.1
   weight_decay            : 0.0
   step_size_reduce_epochs : 500
-  step_size_reduce_percent: 0.0
-  stop_at_zero_error      : false
+  step_size_reduce_percent: 0.1
+  stop_at_zero_error      : true
