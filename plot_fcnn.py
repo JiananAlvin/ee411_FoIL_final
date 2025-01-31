@@ -65,5 +65,5 @@ plot_loss(
 )
 
 plt.tight_layout()
-plt.savefig("figures/double_descent_fcnn_mnist.pdf", dpi=300)
+plt.savefig("figures/double_descent_fcnn_mnist.png", dpi=300)
 plt.show()

@@ -180,5 +180,5 @@ plot_vs_rff(
 )
 
 plt.tight_layout(rect=[0, 0, 1, 0.96])
-plt.savefig("figures/double_descent_rff_mnist.pdf", dpi=300)
+plt.savefig("figures/double_descent_rff_mnist.png", dpi=300)
 plt.show()
