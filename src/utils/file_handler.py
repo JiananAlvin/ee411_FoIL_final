@@ -14,10 +14,11 @@ class FileHandler:
             if not os.path.exists(self.log_folder):
                 os.makedirs(self.log_folder)
             elif os.listdir(self.log_folder):
-                exit(f"error: logs for {self.config_name} already exist at {self.log_folder}")
+                exit(
+                    f"error: logs for {self.config_name} already exist at {self.log_folder}"
+                )
 
-
-    ## Config File 
+    ## Config File
     def save_config(self, config):
         file = os.path.join(self.log_folder, f"{self.config_name}.yaml")
         OmegaConf.save(config, file)
@@ -26,41 +27,40 @@ class FileHandler:
         file = os.path.join(self.log_folder, f"{self.config_name}.yaml")
         return OmegaConf.load(file)
 
-
     ## Numpy Array
     def save_numpy(self, metric_name: str, arr: np.ndarray):
-        file = os.path.join(self.log_folder, metric_name + '.npy')
+        file = os.path.join(self.log_folder, metric_name + ".npy")
 
-        with open(file, 'wb') as f:
+        with open(file, "wb") as f:
             np.save(f, arr)
 
     def load_numpy(self, metric_name):
-        file = os.path.join(self.log_folder, metric_name + '.npy')
+        file = os.path.join(self.log_folder, metric_name + ".npy")
 
-        with open(file, 'rb') as f:
+        with open(file, "rb") as f:
             arr = np.load(f)
 
         return arr
 
-
     ## Logs
-    def save_logs(self,
-                  config: dict,
-                  zero_one_loss_train: np.ndarray,
-                  squared_loss_train: np.ndarray,
-                  zero_one_loss_test: np.ndarray,
-                  squared_loss_test: np.ndarray):
+    def save_logs(
+        self,
+        config: dict,
+        zero_one_loss_train: np.ndarray,
+        squared_loss_train: np.ndarray,
+        zero_one_loss_test: np.ndarray,
+        squared_loss_test: np.ndarray,
+    ):
 
         self.save_config(config=config)
 
         # train results
-        self.save_numpy('zero_one_loss_train', zero_one_loss_train)
-        self.save_numpy('squared_loss_train', squared_loss_train)
+        self.save_numpy("zero_one_loss_train", zero_one_loss_train)
+        self.save_numpy("squared_loss_train", squared_loss_train)
 
         # test results
-        self.save_numpy('zero_one_loss_test', zero_one_loss_test)
-        self.save_numpy('squared_loss_test', squared_loss_test)
-
+        self.save_numpy("zero_one_loss_test", zero_one_loss_test)
+        self.save_numpy("squared_loss_test", squared_loss_test)
 
     def load_logs(self):
 
@@ -69,25 +69,22 @@ class FileHandler:
 
         # statistics
         statistics = {
-            'train': {
-                'zero_one_loss': self.load_numpy('zero_one_loss_train'),
-                'squared_loss': self.load_numpy('squared_loss_train')
+            "train": {
+                "zero_one_loss": self.load_numpy("zero_one_loss_train"),
+                "squared_loss": self.load_numpy("squared_loss_train"),
             },
-            'test': {
-                'zero_one_loss': self.load_numpy('zero_one_loss_test'),
-                'squared_loss': self.load_numpy('squared_loss_test')
+            "test": {
+                "zero_one_loss": self.load_numpy("zero_one_loss_test"),
+                "squared_loss": self.load_numpy("squared_loss_test"),
             },
         }
 
         return config, statistics
 
-    
     def save_weight_norm(self, weight_norm: np.ndarray):
 
-        self.save_numpy('weight_norm', weight_norm)
-
-
+        self.save_numpy("weight_norm", weight_norm)
 
     def load_weight_norm(self):
 
-        return self.load_numpy('weight_norm')
+        return self.load_numpy("weight_norm")

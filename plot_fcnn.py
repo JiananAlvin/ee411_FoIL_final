@@ -26,9 +26,7 @@ def plot_loss(ax, x, y_train, y_test, ylabel, title, threshold, is_zero_one=Fals
     ax.legend(fontsize=11)
 
 
-config = OmegaConf.load(
-    os.path.join(Folders.CONFIGS, "fcnn_mnist_label_noise_0_10.yaml")
-)
+config = OmegaConf.load(os.path.join(Folders.CONFIGS, "fcnn_mnist.yaml"))
 num_params = np.array(config.fcnn_parameters.hidden_nodes)
 
 data = {
@@ -65,5 +63,5 @@ plot_loss(
 )
 
 plt.tight_layout()
-plt.savefig("figures/double_descent_fcnn_mnist.png", dpi=300)
+plt.savefig("figures/double_descent_fcnn_mnist.pdf", dpi=300)
 plt.show()

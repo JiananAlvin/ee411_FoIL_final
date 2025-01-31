@@ -9,21 +9,32 @@ from src.utils.logger import init_wandb
 
 # Set up argument parsing
 parser = argparse.ArgumentParser()
-parser.add_argument('-c', '--config', type=str, default='fcnn_mnist_label_noise_0_10',
-                    help='Name of the config file (without extension) to be used for the experiment.')
-parser.add_argument('-m', '--model_type', type=str, required=True, choices=[Models.FCNN, Models.RFF],
-                    help='Type of model to use for the experiment: "fcnn" or "rff".')
+parser.add_argument(
+    "-c",
+    "--config",
+    type=str,
+    default="fcnn_mnist",
+    help="Name of the config file (without extension) to be used for the experiment.",
+)
+parser.add_argument(
+    "-m",
+    "--model_type",
+    type=str,
+    required=True,
+    choices=[Models.FCNN, Models.RFF],
+    help='Type of model to use for the experiment: "fcnn" or "rff".',
+)
 
 args = parser.parse_args()
 
-if __name__ == '__main__':
-    config_file = os.path.join(Folders.CONFIGS, args.config + '.yaml')
+if __name__ == "__main__":
+    config_file = os.path.join(Folders.CONFIGS, args.config + ".yaml")
 
     if not os.path.exists(config_file):
         raise FileNotFoundError(f"Configuration file not found: {config_file}")
 
     config = OmegaConf.load(config_file)
-    
+
     logger = init_wandb(args.config)
 
     experiment = Experiment(

@@ -81,8 +81,8 @@ def plot_vs_rff(
 
 
 # Load configuration and data
-config_file = os.path.join(Folders.CONFIGS, "rff_mnist_label_noise_0_10.yaml")
-result_path = os.path.join(Folders.LOGS, "rff_mnist_label_noise_0_10/")
+config_file = os.path.join(Folders.CONFIGS, "rff_mnist.yaml")
+result_path = os.path.join(Folders.LOGS, "rff_mnist/")
 config = OmegaConf.load(config_file)
 num_rff = np.array(config.rff_parameters.n_features)
 
