@@ -14,7 +14,13 @@ from src.utils.constants import Models
 
 class Experiment:
 
-    def __init__(self, model_type: str, config: DictConfig, logger: Run, file_handler: FileHandler):
+    def __init__(
+        self,
+        model_type: str,
+        config: DictConfig,
+        logger: Run,
+        file_handler: FileHandler,
+    ):
 
         self.model_type = model_type
         self.config = config
@@ -26,7 +32,7 @@ class Experiment:
 
     def run(self):
         repetitions = self.config.repetitions
-        
+
         # decide parameter range based on model type
         if self.model_type == Models.FCNN:
             param_range = self.config.fcnn_parameters.hidden_nodes
@@ -36,12 +42,18 @@ class Experiment:
             raise ValueError(f"Invalid model type: {self.model_type}")
 
         # initialize metric arrays
-        zero_one_loss_train, squared_loss_train = [np.zeros(shape=(repetitions, len(param_range))) for _ in range(2)]
-        zero_one_loss_test, squared_loss_test = [np.zeros(shape=(repetitions, len(param_range))) for _ in range(2)]
+        zero_one_loss_train, squared_loss_train = [
+            np.zeros(shape=(repetitions, len(param_range))) for _ in range(2)
+        ]
+        zero_one_loss_test, squared_loss_test = [
+            np.zeros(shape=(repetitions, len(param_range))) for _ in range(2)
+        ]
         if self.model_type == Models.RFF:
             weight_norm = np.zeros(shape=(repetitions, len(param_range)))
 
-        with tqdm(total=repetitions * len(param_range), file=stdout, smoothing=0.1) as pbar:
+        with tqdm(
+            total=repetitions * len(param_range), file=stdout, smoothing=0.1
+        ) as pbar:
             for r in range(repetitions):
                 torch.manual_seed(42 + r)
                 np.random.seed(42 + r)
@@ -70,7 +82,11 @@ class Experiment:
                         )
 
                     # train model
-                    model.train(X_train=X_train, Y_train=Y_train, training_parameters=self.training_parameters)
+                    model.train(
+                        X_train=X_train,
+                        Y_train=Y_train,
+                        training_parameters=self.training_parameters,
+                    )
                     if self.model_type == Models.FCNN:
                         smaller_model = model.model
 
@@ -82,34 +98,50 @@ class Experiment:
                     c_train, p_train = model.predict_class_and_proba(X_train)
                     c_test, p_test = model.predict_class_and_proba(X_test)
 
-                    zero_one_loss, squared_loss = Evaluator.evaluate(y_pred=c_train, p_pred=p_train, y_true=Y_train, n_classes=data_loader.n_classes)
+                    zero_one_loss, squared_loss = Evaluator.evaluate(
+                        y_pred=c_train,
+                        p_pred=p_train,
+                        y_true=Y_train,
+                        n_classes=data_loader.n_classes,
+                    )
                     zero_one_loss_train[r][i] += zero_one_loss
                     squared_loss_train[r][i] += squared_loss
 
-                    self.logger.log({
-                        "train/zero_one_loss": zero_one_loss,
-                        "train/squared_loss": squared_loss,
-                    })
+                    self.logger.log(
+                        {
+                            "train/zero_one_loss": zero_one_loss,
+                            "train/squared_loss": squared_loss,
+                        }
+                    )
 
-                    zero_one_loss, squared_loss = Evaluator.evaluate(y_pred=c_test, p_pred=p_test, y_true=Y_test, n_classes=data_loader.n_classes)
+                    zero_one_loss, squared_loss = Evaluator.evaluate(
+                        y_pred=c_test,
+                        p_pred=p_test,
+                        y_true=Y_test,
+                        n_classes=data_loader.n_classes,
+                    )
                     zero_one_loss_test[r][i] += zero_one_loss
                     squared_loss_test[r][i] += squared_loss
 
-                    self.logger.log({
-                        "test/zero_one_loss": zero_one_loss,
-                        "test/squared_loss": squared_loss,
-                    })
+                    self.logger.log(
+                        {
+                            "test/zero_one_loss": zero_one_loss,
+                            "test/squared_loss": squared_loss,
+                        }
+                    )
 
                     # update progress bar
                     pbar.update(1)
-        
-        self.file_handler.save_logs(config=self.config,
-                            zero_one_loss_train=zero_one_loss_train,
-                            squared_loss_train=squared_loss_train,
-                            zero_one_loss_test=zero_one_loss_test,
-                            squared_loss_test=squared_loss_test)
+
+        self.file_handler.save_logs(
+            config=self.config,
+            zero_one_loss_train=zero_one_loss_train,
+            squared_loss_train=squared_loss_train,
+            zero_one_loss_test=zero_one_loss_test,
+            squared_loss_test=squared_loss_test,
+        )
         if self.model_type == Models.RFF:
             self.file_handler.save_weight_norm(weight_norm=weight_norm)
-                
+
         # finish wandb run
         self.logger.finish()

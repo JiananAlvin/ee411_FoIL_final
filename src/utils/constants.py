@@ -1,14 +1,13 @@
-
 class Folders:
-    CONFIGS = 'config/'
-    LOGS = 'results/'
-    DATA = 'data/'
+    CONFIGS = "config/"
+    LOGS = "results/"
+    DATA = "data/"
 
 
 class Datasets:
-    MNIST = 'MNIST'
+    MNIST = "MNIST"
 
 
 class Models:
-    RFF = 'rff'
-    FCNN = 'fcnn'
+    RFF = "rff"
+    FCNN = "fcnn"
