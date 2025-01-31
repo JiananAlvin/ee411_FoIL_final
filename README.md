@@ -1,4 +1,4 @@
-# Reconciling Modern Machine Learning Practice and the Bias-variance Trade-off Reproducibility Challenge
+# Reconciling Modern Machine Learning Practice and the Bias-variance Trade-off Reproducibility Challenge 🚀
 
 This repository contains the code and resources for the reproducibility challenge "Modern Machine Learning Practice and the Bias-variance Trade-off" by Jianan Xu.
 
