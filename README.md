@@ -62,7 +62,7 @@ Replace <model_type> with either `rff` or `fcnn` to select the model you want to
 The project includes two model architectures: FCNN and RFF. You can modify the existing models by updating the corresponding files (`fcnn.py`/`fcnn_wrapper.py` and `rff.py`) under `src/models/`. You can also create new ones under `src/models/`.
 
 ## Results
-Our experiments successfully replicate the key findings from Figures 2 and 4 in Belkin et al. For the RFF model trained on a subset of MNIST ($n=10,000$), we observe the double descent risk curve as the number of random features $N$ varies from 100 to $60,000$. The test risk exhibits a classical U-shaped bias-variance trade-off curve at low $N$, with the interpolation peak occurring at $N=n$. As $N$ increases beyond the interpolation threshold, the test risk undergoes a pronounced "second descent."
+Our experiments successfully replicate the key findings from Figures 2 and 4 in Belkin et al. For the RFF model trained on a subset of MNIST ($n=10,000$), we observe the double descent risk curve as the number of random features $N$ varies from $100$ to $60,000$. The test risk exhibits a classical U-shaped bias-variance trade-off curve at low $N$, with the interpolation peak occurring at $N=n$. As $N$ increases beyond the interpolation threshold, the test risk undergoes a pronounced "second descent."
 
 ![Alt Text](./figures/double_descent_rff_mnist.png)
 
