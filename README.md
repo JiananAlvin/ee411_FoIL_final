@@ -1,4 +1,4 @@
-# Reconciling Modern Machine Learning Practice and the Bias-variance Trade-off Reproducibility Challenge
+# Reconciling Modern Machine Learning Practice and the Bias-variance Trade-off Reproducibility Challenge 🚀
 
 This repository contains the code and resources for the reproducibility challenge "Modern Machine Learning Practice and the Bias-variance Trade-off" by Jianan Xu.
 
@@ -29,7 +29,9 @@ conda activate double_descent
 ```
 
 ## Usage
-1. Prepare the dataset: [Download the MNIST dataset](http://yann.lecun.com/exdb/mnist/), unzip and place the four files under:
+1. Prepare the dataset:
+
+[Download the MNIST dataset](http://yann.lecun.com/exdb/mnist/), unzip and place the four files under:
 ```
 data
 └── MNIST
@@ -40,28 +42,31 @@ data
         └── train-labels.idx1-ubyte
 ```
 
-2. Configure the model and training parameters
-The configurations for the experiments are stored in YAML files under `config`. The default configuration files are `rff_mnist_label_noise_0_10.yaml` for RFF models and `fcnn_mnist_label_noise_0_10.yaml` for FCNNs. You can create a new configuration file or modify the existing one to customize the experiment parameters.
+2. Configure the model and training parameters:
+   
+The configurations for the experiments are stored in YAML files under `config`. The default configuration files are `rff_mnist.yaml` for RFF models and `fcnn_mnist.yaml` for FCNNs. You can create a new configuration file or modify the existing one to customize the experiment parameters.
 
-3. Run the experiment
+3. Run the experiment:
+   
 To run the experiment, use the following command:
 ```
 python run.py --model_type <model_type> --config <configuration_file>
 ```
-Replace <model_type> with either `rff` or `fcnn` to select the model you want to use. Replace <configuration_file> with either `rff_mnist_label_noise_0_10` or `fcnn_mnist_label_noise_0_10` accordingly.
+Replace <model_type> with either `rff` or `fcnn` to select the model you want to use. Replace <configuration_file> with either `rff_mnist` or `fcnn_mnist` accordingly.
 
 > [!NOTE]
 > Before running the experiments, make sure the <code>results/</code> folder is empty. This ensures that the new results are saved properly without conflicts from previous runs. If needed, manually delete old experiment results or move them to a backup location.
 
-4. Customize and extend Model Architectures
-The project includes two model architectures: FCNN and RFF. You can modify the existing models by updating the corresponding files (fcnn.py/fcnn_wrapper.py and rff.py) under `src/models/`. You can also create new ones under `src/models/`.
+4. Customize and extend Model Architectures:
+
+The project includes two model architectures: FCNN and RFF. You can modify the existing models by updating the corresponding files (`fcnn.py`/`fcnn_wrapper.py` and `rff.py`) under `src/models/`. You can also create new ones under `src/models/`.
 
 ## Results
-Our experiments successfully replicate the key findings from Figures 2 and 4 in Belkin et al. For the RFF model trained on a subset of MNIST ($n=10,000$), we observe the double descent risk curve as the number of random features N varies from 100 to $60,000$. The test risk exhibits a classical U-shaped bias-variance trade-off curve at low $N$, with the interpolation peak occurring at $N=n$. As $N$ increases beyond the interpolation threshold, the test risk undergoes a pronounced "second descent."
+Our experiments successfully replicate the key findings from Figures 2 and 4 in Belkin et al. For the RFF model trained on a subset of MNIST ($n=10,000$), we observe the double descent risk curve as the number of random features $N$ varies from $100$ to $60,000$. The test risk exhibits a classical U-shaped bias-variance trade-off curve at low $N$, with the interpolation peak occurring at $N=n$. As $N$ increases beyond the interpolation threshold, the test risk undergoes a pronounced "second descent."
 
 ![Alt Text](./figures/double_descent_rff_mnist.png)
 
-For FCNNs with a single hidden layer trained on MNIST ($n=4,000$), we reproduce the double descent behavior as the number of hidden units $H$ increases. The interpolation threshold occurs at $40,000$ total parameters (when H ≈ 4,000). As with RFF, the test risk decreases when increasing model capacity past interpolation.
+For FCNNs with a single hidden layer trained on MNIST ($n=4,000$), we reproduce the double descent behavior as the number of hidden units $H$ increases. The interpolation threshold occurs at $40,000$ total parameters (when $H ≈ 4,000$). As with RFF, the test risk decreases when increasing model capacity past interpolation.
 
 ![Alt Text](./figures/double_descent_fcnn_mnist.png)
 
