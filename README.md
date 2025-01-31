@@ -66,7 +66,7 @@ Our experiments successfully replicate the key findings from Figures 2 and 4 in 
 
 ![Alt Text](./figures/double_descent_rff_mnist.png)
 
-For FCNNs with a single hidden layer trained on MNIST ($n=4,000$), we reproduce the double descent behavior as the number of hidden units $H$ increases. The interpolation threshold occurs at $40,000$ total parameters (when H ≈ 4,000). As with RFF, the test risk decreases when increasing model capacity past interpolation.
+For FCNNs with a single hidden layer trained on MNIST ($n=4,000$), we reproduce the double descent behavior as the number of hidden units $H$ increases. The interpolation threshold occurs at $40,000$ total parameters (when $H ≈ 4,000$). As with RFF, the test risk decreases when increasing model capacity past interpolation.
 
 ![Alt Text](./figures/double_descent_fcnn_mnist.png)
 
